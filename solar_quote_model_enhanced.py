@@ -214,6 +214,16 @@ class SolarQuoteModel:
         if quantiles is None:
             quantiles = [0.1, 0.9]
 
+        # Ensure training_data_info is set
+        if not self.training_data_info:
+            self.training_data_info = {
+                "total_rows": len(df),
+                "timestamp": datetime.now().isoformat(),
+                "numeric_features": NUMERIC_FEATURES,
+                "categorical_features": CATEGORICAL_FEATURES,
+                "targets": TARGETS,
+            }
+
         X = df[NUMERIC_FEATURES + CATEGORICAL_FEATURES].copy()
         fitted = {}
         self.metrics = {}
@@ -607,7 +617,10 @@ class SolarQuoteModel:
         print("=" * 70)
         print(f"Trained at: {self.trained_at}")
         print(f"Panel wattage: {self.panel_wattage} W")
-        print(f"Training data: {self.training_data_info['total_rows']} quotes\n")
+        
+        # Safely access training_data_info with .get() to avoid KeyError
+        total_rows = self.training_data_info.get('total_rows', 'Unknown')
+        print(f"Training data: {total_rows} quotes\n")
 
         for target in TARGETS:
             if target not in self.metrics:
