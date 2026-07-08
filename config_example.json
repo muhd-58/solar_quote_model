@@ -1,0 +1,32 @@
+{
+  "model_config": {
+    "panel_wattage": 620,
+    "available_panel_models": {
+      "standard_620w": 620,
+      "high_eff_670w": 670,
+      "high_eff_700w": 700
+    },
+    "available_inverter_sizes_kw": [3, 5, 8, 10, 15, 20, 30, 50],
+    "battery_system_efficiency": 0.85,
+    "watts_per_m2": 180
+  },
+  "regional_irradiance": {
+    "north": 3.5,
+    "south": 5.2,
+    "east": 4.1,
+    "west": 4.3,
+    "default": 4.0
+  },
+  "training_config": {
+    "test_size": 0.2,
+    "cv_folds": 5,
+    "quantiles": [0.1, 0.9],
+    "gradient_boosting": {
+      "n_estimators": 300,
+      "max_depth": 3,
+      "learning_rate": 0.05,
+      "subsample": 0.8
+    }
+  },
+  "output_directory": "./solar_models_checkpoint"
+}
